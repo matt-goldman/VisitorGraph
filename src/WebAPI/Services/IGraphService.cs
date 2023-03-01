@@ -4,7 +4,7 @@ namespace GraphVisitor.WebApi.Services;
 
 public interface IGraphService
 {
-    public IEnumerable<Staff> SearchStaff(string query);
+    public Task<IEnumerable<Staff>> SearchStaff(string query);
 
     public Task SendNotification();
 }

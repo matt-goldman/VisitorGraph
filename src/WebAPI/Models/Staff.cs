@@ -10,6 +10,8 @@ public class Staff
 
     public string Email { get; set; }
 
+    public string Department { get; set; }
+
     public string GraphId { get; set; }
 
     public IEnumerable<Visit> Visits { get; set; }

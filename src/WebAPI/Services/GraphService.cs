@@ -39,9 +39,37 @@ public class GraphService : IGraphService
         _graphClient = new GraphServiceClient(clientSecretCredential, scopes);
     }
 
-    public IEnumerable<Staff> SearchStaff(string query)
+    public async Task<IEnumerable<Staff>> SearchStaff(string query)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var searchResults = await _graphClient.Users.GetAsync(req =>
+            {
+                req.QueryParameters.Search = $"displayName:{query}";
+                req.QueryParameters.Select = new string[] { "displayName", "department", "email" };
+            });
+
+            var results = new List<Staff>();
+
+            foreach (var result in searchResults.Value)
+            {
+                results.Add(new Staff
+                {
+                    Department = result.Department,
+                    FirstName = result.GivenName,
+                    LastName = result.Surname,
+                    Email = result.Mail,
+                    GraphId = result.Id
+                });
+            }
+
+            return results;
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
     }
 
     public Task SendNotification()
