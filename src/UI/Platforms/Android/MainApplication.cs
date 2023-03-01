@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace UI;
+namespace GraphVisitor.UI;
 
 [Application]
 public class MainApplication : MauiApplication

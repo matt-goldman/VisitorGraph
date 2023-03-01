@@ -1,4 +1,4 @@
-﻿namespace UI;
+﻿namespace GraphVisitor.UI;
 
 public partial class MainPage : ContentPage
 {

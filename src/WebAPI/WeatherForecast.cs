@@ -1,4 +1,4 @@
-namespace WebAPI;
+namespace GraphVisitor.WebApi;
 
 public class WeatherForecast
 {

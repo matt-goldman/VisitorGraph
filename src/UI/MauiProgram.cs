@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace UI;
+namespace GraphVisitor.UI;
 
 public static class MauiProgram
 {

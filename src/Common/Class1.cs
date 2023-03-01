@@ -1,4 +1,4 @@
-﻿namespace Common;
+﻿namespace GraphVisitor.Common;
 public class Class1
 {
 

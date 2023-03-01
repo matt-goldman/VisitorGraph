@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace UI;
+namespace GraphVisitor.UI;
 
 public class Program
 {

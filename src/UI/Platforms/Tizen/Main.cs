@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace UI;
+namespace GraphVisitor.UI;
 
 class Program : MauiApplication
 {

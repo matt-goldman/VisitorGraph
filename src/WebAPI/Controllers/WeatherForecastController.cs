@@ -1,6 +1,7 @@
+using GraphVisitor.WebApi;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers;
+namespace GraphVisitor.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
