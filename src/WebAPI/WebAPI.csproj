@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <RootNamespace>GraphVisitor.WebApi</RootNamespace>
+	  <UserSecretsId>49f0ddde-bf8b-4855-bc85-c6f00170f6bf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
