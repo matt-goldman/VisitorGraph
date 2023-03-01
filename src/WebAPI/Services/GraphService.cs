@@ -8,8 +8,9 @@ namespace GraphVisitor.WebApi.Services;
 public class GraphService : IGraphService
 {
     private readonly GraphServiceClient _graphClient;
+    private readonly ILogger<GraphService> _logger;
 
-    public GraphService(IOptions<GraphOptions> options)
+    public GraphService(IOptions<GraphOptions> options, ILogger<GraphService> logger)
     {
         var graphOptions = options.Value;
         // The client credentials flow requires that you request the
@@ -37,6 +38,7 @@ public class GraphService : IGraphService
             tenantId, clientId, clientSecret, clientOptions);
 
         _graphClient = new GraphServiceClient(clientSecretCredential, scopes);
+        _logger = logger;
     }
 
     public async Task<IEnumerable<Staff>> SearchStaff(string query)
@@ -45,8 +47,9 @@ public class GraphService : IGraphService
         {
             var searchResults = await _graphClient.Users.GetAsync(req =>
             {
-                req.QueryParameters.Search = $"displayName:{query}";
-                req.QueryParameters.Select = new string[] { "displayName", "department", "email" };
+                req.QueryParameters.Search = $"\"displayName:{query}\"";
+                req.QueryParameters.Select = new string[] { "givenName", "surname", "Department", "Mail", "Id" };
+                req.Headers.Add("ConsistencyLevel", "eventual");
             });
 
             var results = new List<Staff>();
@@ -67,6 +70,7 @@ public class GraphService : IGraphService
         }
         catch (Exception ex)
         {
+            _logger.LogError("Error searching Graph for users", ex);
 
             throw;
         }
