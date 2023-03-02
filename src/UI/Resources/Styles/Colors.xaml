@@ -43,7 +43,15 @@
 
     <Color x:Key="MainBackground">#35007d</Color>
 
-    <Color x:Key="FormBackground">#60150015</Color>
+    <Color x:Key="FormBackground">#90150015</Color>
+
+    <LinearGradientBrush x:Key="ButtonGradient"
+                         StartPoint="0.5,0"
+                         EndPoint="0.5,1">
+        <GradientStop Color="{DynamicResource Blue300Accent}" Offset="0.1"/>
+        <GradientStop Color="{DynamicResource Blue100Accent}" Offset="0.5"/>
+        <GradientStop Color="{DynamicResource Cyan300Accent}" Offset="0.9"/>
+    </LinearGradientBrush>
     
 
 </ResourceDictionary>

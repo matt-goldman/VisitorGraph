@@ -24,7 +24,7 @@
                     Background="{DynamicResource FormBackground}"
                     WidthRequest="700"
                     HeightRequest="600">
-                <VerticalStackLayout Spacing="25"
+                <VerticalStackLayout Spacing="50"
                                      Padding="30,0"
                                      WidthRequest="700"
                                      VerticalOptions="Center"
@@ -65,7 +65,11 @@
                                WidthRequest="300"/>
                     </HorizontalStackLayout>
 
-                    <Button Text="Sign in"/>
+                    <Button Text="Sign in"
+                            Background="{DynamicResource ButtonGradient}"
+                            TextColor="White"
+                            WidthRequest="200"
+                            CornerRadius="25"/>
 
                 </VerticalStackLayout>
             </Border>
