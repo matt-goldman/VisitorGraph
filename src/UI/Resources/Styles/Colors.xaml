@@ -45,12 +45,16 @@
 
     <Color x:Key="FormBackground">#90150015</Color>
 
+    <Color x:Key="ButtonBackground">#97199D</Color>
+
+    <Color x:Key="ButtonGlow">#F881FE</Color>
+
     <LinearGradientBrush x:Key="ButtonGradient"
                          StartPoint="0.5,0"
                          EndPoint="0.5,1">
-        <GradientStop Color="{DynamicResource Blue300Accent}" Offset="0.1"/>
-        <GradientStop Color="{DynamicResource Blue100Accent}" Offset="0.5"/>
-        <GradientStop Color="{DynamicResource Cyan300Accent}" Offset="0.9"/>
+        <GradientStop Color="{DynamicResource Primary}" Offset="0.1"/>
+        <!--<GradientStop Color="{DynamicResource Blue100Accent}" Offset="0.5"/>-->
+        <GradientStop Color="{DynamicResource ButtonBackground}" Offset="0.9"/>
     </LinearGradientBrush>
     
 

@@ -14,7 +14,7 @@
 
         <Image Source="synth_logo.png"
                VerticalOptions="Start"
-               HorizontalOptions="Start"
+               HorizontalOptions="End"
                WidthRequest="400"
                Margin="20"/>
         <ScrollView>
@@ -22,13 +22,13 @@
                     Stroke="Purple"
                     StrokeDashArray="4,4"
                     Background="{DynamicResource FormBackground}"
-                    WidthRequest="700"
+                    WidthRequest="600"
                     HeightRequest="600">
                 <VerticalStackLayout Spacing="50"
                                      Padding="30,0"
-                                     WidthRequest="700"
+                                     WidthRequest="600"
                                      VerticalOptions="Center"
-                                     HorizontalOptions="Center">
+                                     HorizontalOptions="Start">
 
                     <Entry Placeholder="Start typing the name of a staff member..."
                            Text="{Binding SearchTerm}">
@@ -58,10 +58,8 @@
                     <HorizontalStackLayout Spacing="30"
                                            HorizontalOptions="Center">
                         <Entry Placeholder="Your name..."
-                               TextColor="Yellow"
                                WidthRequest="200"/>
                         <Entry Placeholder="Your email..."
-                               TextColor="Yellow"
                                WidthRequest="300"/>
                     </HorizontalStackLayout>
 
@@ -69,7 +67,16 @@
                             Background="{DynamicResource ButtonGradient}"
                             TextColor="White"
                             WidthRequest="200"
-                            CornerRadius="25"/>
+                            FontSize="18"
+                            HeightRequest="50"
+                            CornerRadius="25">
+                        <Button.Shadow>
+                            <Shadow Brush="{DynamicResource ButtonGlow}"
+                                    Offset="0,0"
+                                    Radius="20"
+                                    Opacity="0.5"/>
+                        </Button.Shadow>
+                    </Button>
 
                 </VerticalStackLayout>
             </Border>
