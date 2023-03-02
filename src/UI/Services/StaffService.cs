@@ -19,13 +19,22 @@ public class StaffService : IStaffService
 
     public async Task<IEnumerable<StaffDto>> Search(string searchTerm)
     {
-        var response = await _httpClient.GetAsync($"/staff/search/{searchTerm}");
-        if (response.IsSuccessStatusCode)
+        try
         {
-            return await response.Content.ReadFromJsonAsync<IEnumerable<StaffDto>>();
+            var response = await _httpClient.GetAsync($"/staff/search/{searchTerm}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<IEnumerable<StaffDto>>();
+            }
+            else
+            {
+                return Enumerable.Empty<StaffDto>();
+            }
         }
-        else
+        catch (Exception)
         {
+            // TODO: Replace with popup from MCT
+            await App.Current.MainPage.DisplayAlert("Error", "Service not currently available", "OK");
             return Enumerable.Empty<StaffDto>();
         }
     }

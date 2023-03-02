@@ -6,6 +6,13 @@
              xmlns:dto="clr-namespace:GraphVisitor.Common.DTOs;assembly=Common"
              x:DataType="vm:MainViewModel"
              x:Class="GraphVisitor.UI.MainPage">
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+        </Style>
+    </ContentPage.Resources>
 
     <Grid BackgroundColor="{DynamicResource MainBackground}">
         <Image VerticalOptions="EndAndExpand"
@@ -28,7 +35,7 @@
                                      Padding="30,0"
                                      WidthRequest="600"
                                      VerticalOptions="Center"
-                                     HorizontalOptions="Start">
+                                     HorizontalOptions="Start" >
 
                     <Entry Placeholder="Start typing the name of a staff member..."
                            Text="{Binding SearchTerm}">
@@ -39,7 +46,7 @@
 
                     <CollectionView ItemsSource="{Binding SearchResults}"
                                     SelectionMode="Single"
-                                    SelectedItems="{Binding SelectedStaff}"
+                                    SelectedItem="{Binding SelectedStaff}"
                                     HeightRequest="200">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -58,9 +65,18 @@
                     <HorizontalStackLayout Spacing="30"
                                            HorizontalOptions="Center">
                         <Entry Placeholder="Your name..."
-                               WidthRequest="200"/>
+                               WidthRequest="200"
+                               Text="{Binding VisitorName}" />
                         <Entry Placeholder="Your email..."
-                               WidthRequest="300"/>
+                               WidthRequest="300"
+                               Text="{Binding VisitorEmail}">
+                            <Entry.Behaviors>
+                                <toolkit:EmailValidationBehavior 
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}"
+                                            Flags="ValidateOnValueChanged" />
+                            </Entry.Behaviors>
+                        </Entry>
                     </HorizontalStackLayout>
 
                     <Button Text="Sign in"
@@ -69,7 +85,9 @@
                             WidthRequest="200"
                             FontSize="18"
                             HeightRequest="50"
-                            CornerRadius="25">
+                            CornerRadius="25"
+                            Command="{Binding SignInCommand}"
+                            IsEnabled="{Binding FormIsValid}">
                         <Button.Shadow>
                             <Shadow Brush="{DynamicResource ButtonGlow}"
                                     Offset="0,0"
