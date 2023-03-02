@@ -69,6 +69,7 @@
                                Text="{Binding VisitorName}" />
                         <Entry Placeholder="Your email..."
                                WidthRequest="300"
+                               IsSpellCheckEnabled="False"
                                Text="{Binding VisitorEmail}">
                             <Entry.Behaviors>
                                 <toolkit:EmailValidationBehavior 
