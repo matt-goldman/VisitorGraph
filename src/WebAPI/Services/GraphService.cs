@@ -2,6 +2,7 @@
 using GraphVisitor.WebApi.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
+using Microsoft.Graph.Models;
 
 namespace GraphVisitor.WebApi.Services;
 
@@ -9,23 +10,25 @@ public class GraphService : IGraphService
 {
     private readonly GraphServiceClient _graphClient;
     private readonly ILogger<GraphService> _logger;
+    private readonly GraphOptions _options;
 
     public GraphService(IOptions<GraphOptions> options, ILogger<GraphService> logger)
     {
-        var graphOptions = options.Value;
+        _options = options.Value;
+        
         // The client credentials flow requires that you request the
         // /.default scope, and preconfigure your permissions on the
         // app registration in Azure. An administrator must grant consent
         // to those permissions beforehand.
-        var scopes = graphOptions.Scopes;
+        var scopes = _options.Scopes;
 
         // Multi-tenant apps can use "common",
         // single-tenant apps must use the tenant ID from the Azure portal
-        var tenantId = graphOptions.TenantId;
+        var tenantId = _options.TenantId;
 
         // Values from app registration
-        var clientId = graphOptions.ClientId;
-        var clientSecret = graphOptions.ClientSecret;
+        var clientId = _options.ClientId;
+        var clientSecret = _options.ClientSecret;
 
         // using Azure.Identity;
         var clientOptions = new TokenCredentialOptions
@@ -76,8 +79,64 @@ public class GraphService : IGraphService
         }
     }
 
-    public Task SendNotification()
+    public async Task SendNotification(string staffId, string visitorName, string visitorEmail)
     {
-        throw new NotImplementedException();
+        
+        try
+        {
+            var chat = new Chat
+            {
+                ChatType = ChatType.OneOnOne,
+                Members = new List<ConversationMember>
+                {
+                    new ConversationMember
+                    {
+                        OdataType = "#microsoft.graph.aadUserConversationMember",
+                        Roles = new List<string>
+                        {
+                            "owner",
+                        },
+                        AdditionalData = new Dictionary<string, object>
+                        {
+                            {
+                                "user@odata.bind" , $"https://graph.microsoft.com/v1.0/users('{_options.TeamsSenderId}')"
+                            },
+                        },
+                    },
+                    new ConversationMember
+                    {
+                        OdataType = "#microsoft.graph.aadUserConversationMember",
+                        Roles = new List<string>
+                        {
+                            "owner",
+                        },
+                        AdditionalData = new Dictionary<string, object>
+                        {
+                            {
+                                "user@odata.bind" , $"https://graph.microsoft.com/v1.0/users('{staffId}')"
+                            },
+                        },
+                    },
+                },
+            };
+
+            var teamsChat = await _graphClient.Chats.PostAsync(chat);
+            
+            var message = new ChatMessage
+            {
+                Body = new ItemBody
+                {
+                    Content = $"You have a visitor, {visitorName} ({visitorEmail})",
+                    ContentType = BodyType.Html
+                }
+            };
+
+            var result = await _graphClient.Chats[teamsChat.Id].Messages.PostAsync(message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error sending visitor notification", ex);
+            throw;
+        }
     }
 }

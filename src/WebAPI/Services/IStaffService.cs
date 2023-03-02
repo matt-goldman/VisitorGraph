@@ -1,5 +1,4 @@
 ﻿using GraphVisitor.Common.DTOs;
-using GraphVisitor.WebApi.Data;
 
 namespace GraphVisitor.WebApi.Services;
 
@@ -11,13 +10,11 @@ public interface IStaffService
 public class StaffService : IStaffService
 {
     private readonly IGraphService _graphService;
-    private readonly AppDbContext _appDbContext;
     private readonly ILogger<StaffService> _logger;
 
-    public StaffService(IGraphService graphService, AppDbContext appDbContext, ILogger<StaffService> logger)
+    public StaffService(IGraphService graphService, ILogger<StaffService> logger)
     {
         _graphService = graphService;
-        _appDbContext = appDbContext;
         _logger = logger;
     }
 
