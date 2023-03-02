@@ -43,4 +43,7 @@
 
     <Color x:Key="MainBackground">#150015</Color>
 
+    <Color x:Key="FormBackground">#10FFFFFF</Color>
+    
+
 </ResourceDictionary>

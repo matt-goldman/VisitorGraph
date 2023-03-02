@@ -5,19 +5,16 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4F5E91CA-A400-4E18-83D9-EA010AA66CC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "src\Common\Common.csproj", "{8CC68187-3C08-4CD5-AFC1-45BB29B730B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "src\Common\Common.csproj", "{8CC68187-3C08-4CD5-AFC1-45BB29B730B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "src\WebAPI\WebAPI.csproj", "{ADAEE09E-C9C9-4199-833F-223D3DF5B691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\WebAPI\WebAPI.csproj", "{ADAEE09E-C9C9-4199-833F-223D3DF5B691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "src\UI\UI.csproj", "{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "src\UI\UI.csproj", "{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8CC68187-3C08-4CD5-AFC1-45BB29B730B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,8 +27,12 @@ Global
 		{ADAEE09E-C9C9-4199-833F-223D3DF5B691}.Release|Any CPU.Build.0 = Release|Any CPU
 		{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29CCC5D4-6ED6-44F4-B08B-AB312C411AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8CC68187-3C08-4CD5-AFC1-45BB29B730B0} = {4F5E91CA-A400-4E18-83D9-EA010AA66CC4}
