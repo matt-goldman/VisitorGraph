@@ -7,4 +7,6 @@ public class GraphOptions
     public string ClientId { get; set; }
     public string ClientSecret { get; set; }
     public string TeamsSenderId { get; set; }
+    public string TeamsSenderUsername { get; set; }
+    public string TeamsSenderPassword { get; set; }
 }

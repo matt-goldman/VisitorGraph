@@ -11,36 +11,29 @@ public class GraphService : IGraphService
     private readonly GraphServiceClient _graphClient;
     private readonly ILogger<GraphService> _logger;
     private readonly GraphOptions _options;
+    private readonly GraphServiceClient _teamsSenderClient;
 
     public GraphService(IOptions<GraphOptions> options, ILogger<GraphService> logger)
     {
         _options = options.Value;
-        
-        // The client credentials flow requires that you request the
-        // /.default scope, and preconfigure your permissions on the
-        // app registration in Azure. An administrator must grant consent
-        // to those permissions beforehand.
-        var scopes = _options.Scopes;
 
-        // Multi-tenant apps can use "common",
-        // single-tenant apps must use the tenant ID from the Azure portal
-        var tenantId = _options.TenantId;
-
-        // Values from app registration
-        var clientId = _options.ClientId;
-        var clientSecret = _options.ClientSecret;
-
-        // using Azure.Identity;
+        // Create Graph client for looking up staff and other data
         var clientOptions = new TokenCredentialOptions
         {
             AuthorityHost = AzureAuthorityHosts.AzurePublicCloud
         };
-
-        // https://learn.microsoft.com/dotnet/api/azure.identity.clientsecretcredential
+        
         var clientSecretCredential = new ClientSecretCredential(
-            tenantId, clientId, clientSecret, clientOptions);
+            _options.TenantId, _options.ClientId, _options.ClientSecret, clientOptions);
 
-        _graphClient = new GraphServiceClient(clientSecretCredential, scopes);
+        _graphClient = new GraphServiceClient(clientSecretCredential, _options.Scopes);
+
+
+        // Create Graph client for sending messages to Teams using username and password
+        var teamsSenderCredential = new UsernamePasswordCredential(_options.TeamsSenderUsername, _options.TeamsSenderPassword, _options.TenantId, _options.ClientId, clientOptions);
+
+        _teamsSenderClient = new GraphServiceClient(teamsSenderCredential, _options.Scopes);
+
         _logger = logger;
     }
 
@@ -117,21 +110,24 @@ public class GraphService : IGraphService
                             },
                         },
                     },
-                },
+                }
             };
 
             var teamsChat = await _graphClient.Chats.PostAsync(chat);
-            
+
             var message = new ChatMessage
             {
                 Body = new ItemBody
                 {
-                    Content = $"You have a visitor, {visitorName} ({visitorEmail})",
-                    ContentType = BodyType.Html
-                }
+                    Content = $"Hello, {visitorName} ({visitorEmail}) is waiting for you in the lobby.",
+                    ContentType = BodyType.Html,
+                },
+                Importance = ChatMessageImportance.Normal,
+                MessageType = ChatMessageType.Message,
+                Locale = "en/AU"
             };
 
-            var result = await _graphClient.Chats[teamsChat.Id].Messages.PostAsync(message);
+            await _teamsSenderClient.Chats[teamsChat.Id].Messages.PostAsync(message);
         }
         catch (Exception ex)
         {

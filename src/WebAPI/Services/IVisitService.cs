@@ -30,37 +30,45 @@ public class VisitService : IVisitService
     {
         await _graphService.SendNotification(signIn.StaffId, signIn.VisitorName, signIn.VisitorEmail);
 
-        var visitor = await _dbContext.Visitors.FirstOrDefaultAsync(v => v.Email == signIn.VisitorEmail);
-
-        if (visitor is null)
+        try
         {
-            visitor = new Visitor
+            var visitor = await _dbContext.Visitors.FirstOrDefaultAsync(v => v.Email == signIn.VisitorEmail);
+
+            if (visitor is null)
             {
-                Email = signIn.VisitorEmail,
-                Name = signIn.VisitorName
-            };
-        }
+                visitor = new Visitor
+                {
+                    Email = signIn.VisitorEmail,
+                    Name = signIn.VisitorName
+                };
+            }
 
-        var staff = await _dbContext.Staff.FirstOrDefaultAsync(s => s.GraphId == signIn.StaffId);
+            var staff = await _dbContext.Staff.FirstOrDefaultAsync(s => s.GraphId == signIn.StaffId);
 
-        if (staff is null)
-        {
-            staff = new Staff
+            if (staff is null)
             {
-                GraphId = signIn.StaffId
+                staff = new Staff
+                {
+                    GraphId = signIn.StaffId
+                };
+            }
+
+            var visit = new Visit
+            {
+                Visitor = visitor,
+                StaffMember = staff,
+                SignedIn = DateTime.UtcNow
             };
+
+            _dbContext.Visits.Add(visit);
+
+            await _dbContext.SaveChangesAsync();
         }
-
-        var visit = new Visit
+        catch (Exception ex)
         {
-            Visitor = visitor,
-            StaffMember = staff,
-            SignedIn = DateTime.UtcNow
-        };
-
-        _dbContext.Visits.Add(visit);
-
-        await _dbContext.SaveChangesAsync();
+            _logger.LogError("Error recording visit", ex);
+            throw;
+        }
     }
 
     public Task SignOut(SignOutDto signOut)
