@@ -41,9 +41,9 @@
     <Color x:Key="Blue200Accent">#72ACF1</Color>
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
 
-    <Color x:Key="MainBackground">#150015</Color>
+    <Color x:Key="MainBackground">#35007d</Color>
 
-    <Color x:Key="FormBackground">#10FFFFFF</Color>
+    <Color x:Key="FormBackground">#60150015</Color>
     
 
 </ResourceDictionary>
