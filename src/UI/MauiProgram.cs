@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Maui;
+using GraphVisitor.UI.Pages;
 using GraphVisitor.UI.Services;
 using GraphVisitor.UI.ViewModels;
+using Maui.Plugins.PageResolver;
 using Microsoft.Extensions.Logging;
 
 namespace GraphVisitor.UI;
@@ -17,7 +19,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
-			.UseMauiCommunityToolkit();
+			.UseMauiCommunityToolkit()
+			.UsePageResolver();
 
 #if DEBUG
 		builder.Logging.AddDebug();
@@ -25,6 +28,12 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<MainPage>();
 		builder.Services.AddSingleton<MainViewModel>();
+
+		builder.Services.AddTransient<SigninPage>();
+        builder.Services.AddTransient<SignInViewModel>();
+
+		builder.Services.AddTransient<SignoutPage>();
+        builder.Services.AddTransient<SignOutViewModel>();
 
         builder.Services.AddSingleton<IStaffService, StaffService>();
 		builder.Services.AddSingleton<IVisitService, VisitService>();

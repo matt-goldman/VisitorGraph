@@ -10,6 +10,7 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		ViewModel = viewModel;
+        ViewModel.Navigation = Navigation;
         BindingContext = ViewModel;
     }
 }
