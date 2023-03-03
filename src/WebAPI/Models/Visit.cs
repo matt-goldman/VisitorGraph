@@ -12,5 +12,5 @@ public class Visit
 
     public DateTime SignedIn { get; set; }
 
-    public DateTime? SingedOut { get; set; }
+    public DateTime? SignedOut { get; set; }
 }

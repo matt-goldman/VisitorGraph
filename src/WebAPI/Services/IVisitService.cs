@@ -1,5 +1,6 @@
 ﻿using GraphVisitor.Common.DTOs;
 using GraphVisitor.WebApi.Data;
+using GraphVisitor.WebApi.Exceptions;
 using GraphVisitor.WebApi.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
@@ -71,8 +72,25 @@ public class VisitService : IVisitService
         }
     }
 
-    public Task SignOut(SignOutDto signOut)
+    public async Task SignOut(SignOutDto signOut)
     {
-        throw new NotImplementedException();
+        var signIn = await _dbContext.Visits
+            .Where(v => v.Visitor.Email == signOut.VisitorEmail && v.SignedOut == null)
+            .OrderByDescending(v => v.SignedIn)
+            .ToListAsync();
+
+        if (signIn is null || signIn.Count == 0)
+        {
+            throw new NotFoundException("No sign in found for this visitor");
+        }
+
+        if (signIn.Count > 1)
+        {
+            _logger.LogWarning($"Multiple sign ins found for this visitor {signOut.VisitorEmail}");
+        }
+
+        signIn.First().SignedOut = DateTime.UtcNow;
+
+        await _dbContext.SaveChangesAsync();
     }
 }

@@ -2,5 +2,5 @@
 
 public class SignOutDto
 {
-    public int VisitId { get; set; }
+    public string VisitorEmail { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using GraphVisitor.Common.DTOs;
+using GraphVisitor.WebApi.Exceptions;
 using GraphVisitor.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,8 +27,15 @@ public class VisitController : ControllerBase
     [HttpPost("signout")]
     public async Task<ActionResult> SignOut(SignOutDto signOut)
     {
-        await _visitService.SignOut(signOut);
+        try
+        {
+            await _visitService.SignOut(signOut);
 
-        return Ok();
+            return Ok();
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 }
