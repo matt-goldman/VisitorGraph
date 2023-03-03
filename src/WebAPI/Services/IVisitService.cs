@@ -2,7 +2,6 @@
 using GraphVisitor.WebApi.Data;
 using GraphVisitor.WebApi.Exceptions;
 using GraphVisitor.WebApi.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphVisitor.WebApi.Services;

@@ -6,6 +6,7 @@ namespace GraphVisitor.UI.Services;
 public interface IVisitService
 {
     Task<bool> SignIn(SignInDto dto);
+    Task<bool> SignOut(SignOutDto dto);
 }
 
 public class VisitService : IVisitService
@@ -29,4 +30,18 @@ public class VisitService : IVisitService
             return false;
         }
     }
+
+    public async Task<bool> SignOut(SignOutDto dto)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("/visit/signout", dto);
+            return response.IsSuccessStatusCode;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+}
 }
