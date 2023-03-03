@@ -115,24 +115,82 @@ public class GraphService : IGraphService
 
             var teamsChat = await _graphClient.Chats.PostAsync(chat);
 
+            var attachmentGuid = Guid.NewGuid().ToString();
+
             var message = new ChatMessage
             {
                 Body = new ItemBody
                 {
-                    Content = $"Hello, {visitorName} ({visitorEmail}) is waiting for you in the lobby.",
+                    Content = $"<attachment id=\"{attachmentGuid}\"></attachment>",
                     ContentType = BodyType.Html,
                 },
                 Importance = ChatMessageImportance.Normal,
                 MessageType = ChatMessageType.Message,
-                Locale = "en/AU"
+                Locale = "en/AU",
+                Attachments = new List<ChatMessageAttachment>
+                {
+                    new ChatMessageAttachment
+                    {
+                        Id = attachmentGuid,
+                        ContentType = "application/vnd.microsoft.card.adaptive",
+                        ContentUrl = null,
+                        Content = GenerateCardContent(visitorName, visitorEmail),
+			            Name = null,
+			            ThumbnailUrl = null,
+		            },
+                }
             };
 
-            await _teamsSenderClient.Chats[teamsChat.Id].Messages.PostAsync(message);
+            var msg = await _teamsSenderClient.Chats[teamsChat.Id].Messages.PostAsync(message);
+
+            Console.WriteLine($"[GraphService] Sent message: {msg.Id}");
         }
         catch (Exception ex)
         {
             _logger.LogError("Error sending visitor notification", ex);
             throw;
         }
+    }
+    
+    private string GenerateCardContent(string visitorName, string visitorEmail)
+    {
+        var card = $@"
+{{
+    ""type"": ""AdaptiveCard"",
+    ""$schema"": ""http://adaptivecards.io/schemas/adaptive-card.json"",
+    ""version"": ""1.4"",
+    ""backgroundImage"": {{
+        ""url"": ""https://images.pexels.com/photos/7135028/pexels-photo-7135028.jpeg"",
+        ""fillMode"": ""Cover"",
+        ""verticalAlignment"": ""Center"",
+        ""horizontalAlignment"": ""Center""
+    }},
+    ""minHeight"": ""200px"",
+    ""body"": [
+        {{
+            ""type"": ""TextBlock"",
+            ""text"": ""G'day!"",
+            ""wrap"": true,
+            ""size"": ""ExtraLarge"",
+            ""color"": ""Light"",
+            ""weight"": ""Bolder""
+        }},
+        {{
+            ""type"": ""TextBlock"",
+            ""text"": ""You have a visitor"",
+            ""wrap"": true,
+            ""color"": ""Light"",
+            ""size"": ""ExtraLarge""
+        }},
+        {{
+            ""type"": ""TextBlock"",
+            ""text"": ""**{visitorName}**\\\n({visitorEmail})\\\nis here to see you and is waiting in the lobby."",
+            ""wrap"": true,
+            ""color"": ""Light"",
+            ""size"": ""Large""
+        }}
+    ]
+}}";
+        return card;
     }
 }
