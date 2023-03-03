@@ -1,4 +1,5 @@
 ﻿using GraphVisitor.Common.DTOs;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace GraphVisitor.UI.Services;
@@ -6,7 +7,14 @@ namespace GraphVisitor.UI.Services;
 public interface IVisitService
 {
     Task<bool> SignIn(SignInDto dto);
-    Task<bool> SignOut(SignOutDto dto);
+    Task<SignoutStatus> SignOut(SignOutDto dto);
+}
+
+public enum SignoutStatus
+{
+    Success,
+    Error,
+    NotFound
 }
 
 public class VisitService : IVisitService
@@ -31,17 +39,27 @@ public class VisitService : IVisitService
         }
     }
 
-    public async Task<bool> SignOut(SignOutDto dto)
+    public async Task<SignoutStatus> SignOut(SignOutDto dto)
     {
         try
         {
             var response = await _httpClient.PostAsJsonAsync("/visit/signout", dto);
-            return response.IsSuccessStatusCode;
+            if (response.IsSuccessStatusCode)
+            {
+                return SignoutStatus.Success;
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return SignoutStatus.NotFound;
+            }
+            else
+            {
+                return SignoutStatus.Error;
+            }
         }
         catch (Exception)
         {
-            return false;
+            return SignoutStatus.Error;
         }
     }
-}
 }

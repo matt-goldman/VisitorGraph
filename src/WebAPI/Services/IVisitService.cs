@@ -78,12 +78,12 @@ public class VisitService : IVisitService
             .OrderByDescending(v => v.SignedIn)
             .ToListAsync();
 
-        if (signIn is null || signIn.Count == 0)
+        if (signIn is null || signIn.Count() == 0)
         {
             throw new NotFoundException("No sign in found for this visitor");
         }
 
-        if (signIn.Count > 1)
+        if (signIn.Count() > 1)
         {
             _logger.LogWarning($"Multiple sign ins found for this visitor {signOut.VisitorEmail}");
         }

@@ -4,7 +4,8 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:GraphVisitor.UI.ViewModels"
              x:DataType="vm:MainViewModel"
-             x:Class="GraphVisitor.UI.MainPage">
+             x:Class="GraphVisitor.UI.MainPage"
+             NavigationPage.HasNavigationBar="False">
     <Grid BackgroundColor="{DynamicResource MainBackground}">
         <Image VerticalOptions="EndAndExpand"
                Source="synth_grid.png"

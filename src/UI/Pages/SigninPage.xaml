@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:GraphVisitor.UI.ViewModels"
              xmlns:dto="clr-namespace:GraphVisitor.Common.DTOs;assembly=Common"
              x:DataType="vm:SignInViewModel"
+             NavigationPage.HasNavigationBar="False"
              Title="SigninPage">
     <ContentPage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
