@@ -15,40 +15,22 @@
                HorizontalOptions="End"
                WidthRequest="400"
                Margin="20"/>
+        
         <HorizontalStackLayout Spacing="90"
                                HorizontalOptions="Center"
                                VerticalOptions="Center">
             <Button Text="Sign In"
-                    Background="{DynamicResource ButtonGradient}"
-                    TextColor="White"
-                    WidthRequest="200"
+                    Style="{DynamicResource SynthButton}"
                     FontSize="36"
                     HeightRequest="175"
-                    CornerRadius="25"
-                    Command="{Binding SignInCommand}">
-                <Button.Shadow>
-                    <Shadow Brush="{DynamicResource ButtonGlow}"
-                            Offset="0,0"
-                            Radius="20"
-                            Opacity="0.5"/>
-                </Button.Shadow>
-            </Button>
+                    Command="{Binding SignInCommand}" />
 
             <Button Text="Sign Out"
-                    Background="{DynamicResource ButtonGradient}"
-                    TextColor="White"
-                    WidthRequest="200"
+                    Style="{DynamicResource SynthButton}"
                     FontSize="36"
                     HeightRequest="175"
-                    CornerRadius="25"
-                    Command="{Binding SignOutCommand}">
-                <Button.Shadow>
-                    <Shadow Brush="{DynamicResource ButtonGlow}"
-                            Offset="0,0"
-                            Radius="20"
-                            Opacity="0.5"/>
-                </Button.Shadow>
-            </Button>
+                    Command="{Binding SignOutCommand}"/>
+            
         </HorizontalStackLayout>
     </Grid>
 

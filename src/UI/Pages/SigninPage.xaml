@@ -82,21 +82,11 @@
                     </HorizontalStackLayout>
 
                     <Button Text="Sign in"
-                            Background="{DynamicResource ButtonGradient}"
-                            TextColor="White"
-                            WidthRequest="200"
+                            Style="{DynamicResource SynthButton}"
                             FontSize="18"
                             HeightRequest="50"
-                            CornerRadius="25"
                             Command="{Binding SignInCommand}"
-                            IsEnabled="{Binding FormIsValid}">
-                        <Button.Shadow>
-                            <Shadow Brush="{DynamicResource ButtonGlow}"
-                                    Offset="0,0"
-                                    Radius="20"
-                                    Opacity="0.5"/>
-                        </Button.Shadow>
-                    </Button>
+                            IsEnabled="{Binding FormIsValid}"/>
 
                 </VerticalStackLayout>
             </Border>
