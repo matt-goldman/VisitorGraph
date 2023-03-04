@@ -53,7 +53,6 @@
                          StartPoint="0.5,0"
                          EndPoint="0.5,1">
         <GradientStop Color="{DynamicResource Primary}" Offset="0.1"/>
-        <!--<GradientStop Color="{DynamicResource Blue100Accent}" Offset="0.5"/>-->
         <GradientStop Color="{DynamicResource ButtonBackground}" Offset="0.9"/>
     </LinearGradientBrush>
     

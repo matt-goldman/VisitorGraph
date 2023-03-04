@@ -58,5 +58,13 @@
 
             </VerticalStackLayout>
         </Border>
+
+        <ActivityIndicator HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           HeightRequest="50"
+                           WidthRequest="50"
+                           IsRunning="True"
+                           IsEnabled="True"
+                           IsVisible="{Binding IsBusy}"/>
     </Grid>
 </ContentPage>

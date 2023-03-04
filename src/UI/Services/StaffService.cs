@@ -1,4 +1,6 @@
-﻿using GraphVisitor.Common.DTOs;
+﻿using CommunityToolkit.Maui.Views;
+using GraphVisitor.Common.DTOs;
+using GraphVisitor.UI.Popups;
 using System.Net.Http.Json;
 
 namespace GraphVisitor.UI.Services;
@@ -33,8 +35,8 @@ public class StaffService : IStaffService
         }
         catch (Exception)
         {
-            // TODO: Replace with popup from MCT
-            await App.Current.MainPage.DisplayAlert("Error", "Service not currently available", "OK");
+            var popup = new Dialog("Error", "Service not currently available");
+            var closed = await App.Current.MainPage.ShowPopupAsync(popup);
             return Enumerable.Empty<StaffDto>();
         }
     }

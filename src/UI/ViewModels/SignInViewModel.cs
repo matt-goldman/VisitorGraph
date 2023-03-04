@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GraphVisitor.Common.DTOs;
+using GraphVisitor.UI.Popups;
 using GraphVisitor.UI.Services;
 using System.Collections.ObjectModel;
 
@@ -62,6 +64,9 @@ public partial class SignInViewModel : ObservableObject
     {
         IsBusy = true;
 
+        string title = string.Empty;
+        string body = string.Empty;
+
         try
         {
             var dto = new SignInDto
@@ -73,25 +78,29 @@ public partial class SignInViewModel : ObservableObject
 
             var success = await _visitService.SignIn(dto);
 
-            // TODO: replace these with MCT popups
             if (success)
             {
-                await App.Current.MainPage.DisplayAlert("Signed in successfully", $"{SelectedStaff.DisplayName} has been informed and knows you are waiting.", "OK");
+                title = "Signed in successfully";
+                body = $"{SelectedStaff.DisplayName} has been informed and knows you are waiting.";
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Failed to sign in", "OK");
+                title = "Error";
+                body = "Failed to sign in";
             }
         }
         catch (Exception)
         {
-            await App.Current.MainPage.DisplayAlert("Error", "Failed to sign in", "OK");
+            title = "Error";
+            body = "Failed to sign in";
         }
         finally
         {
             ResetForm();
             IsBusy = false;
 
+            var popup = new Dialog(title, body);
+            var closed = await App.Current.MainPage.ShowPopupAsync(popup);
             await Navigation.PopAsync();
         }
     }

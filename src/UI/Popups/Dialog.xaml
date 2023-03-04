@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+           Color="Transparent"
+           Size="400,400"
+           x:Class="GraphVisitor.UI.Popups.Dialog">
+    <Border BackgroundColor="{DynamicResource ButtonBackground}"
+            StrokeShape="RoundRectangle 25"
+            HeightRequest="375"
+            WidthRequest="375"
+            Padding="10,20"
+            Stroke="Transparent">
+        <Border.Shadow>
+            <Shadow Brush="{DynamicResource ButtonGlow}"
+                    Offset="0,0"
+                    Radius="20"
+                    Opacity="0.5" />
+        </Border.Shadow>
+        <FlexLayout JustifyContent="SpaceBetween"
+                    AlignContent="SpaceBetween"
+                    AlignItems="Center"
+                    Direction="Column"
+                    Padding="50">
+            <VerticalStackLayout Spacing="10">
+                <Label HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       FontSize="36"
+                       x:Name="TitleLabel"/>
+
+                <Line Stroke="{DynamicResource FormBackground}"
+                      X1="0"
+                      X2="300"
+                      Y1="0"
+                      Y2="0"
+                      HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   FontSize="24"
+                   x:Name="BodyLabel"/>
+
+            <Button Style="{DynamicResource SynthButton}"
+                    Text="OK"
+                    HorizontalOptions="Center"
+                    HeightRequest="50"
+                    WidthRequest="80"
+                    Clicked="Button_Clicked"/>
+        </FlexLayout>
+    </Border>
+</mct:Popup>
