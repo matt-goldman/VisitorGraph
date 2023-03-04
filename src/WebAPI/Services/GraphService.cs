@@ -135,9 +135,9 @@ public class GraphService : IGraphService
                         ContentType = "application/vnd.microsoft.card.adaptive",
                         ContentUrl = null,
                         Content = GenerateCardContent(visitorName, visitorEmail),
-			            Name = null,
-			            ThumbnailUrl = null,
-		            },
+                        Name = null,
+                        ThumbnailUrl = null,
+                    },
                 }
             };
 
@@ -151,21 +151,14 @@ public class GraphService : IGraphService
             throw;
         }
     }
-
-    private string GenerateHtmlContent(string visitorName, string visitorEmail)
-    {
-        return string.Empty;
-    }
-    
+        
     private string GenerateCardContent(string visitorName, string visitorEmail)
     {
         var card = $@"
 {{
     ""type"": ""AdaptiveCard"",
-    ""$schema"": ""http://adaptivecards.io/schemas/adaptive-card.json"",
-    ""version"": ""1.4"",
     ""backgroundImage"": {{
-        ""url"": ""https://images.pexels.com/photos/7135028/pexels-photo-7135028.jpeg"",
+        ""url"": ""https://raw.githubusercontent.com/matt-goldman/matt-goldman/main/assets/synth.jpg"",
         ""fillMode"": ""Cover"",
         ""verticalAlignment"": ""Center"",
         ""horizontalAlignment"": ""Center""
@@ -173,28 +166,52 @@ public class GraphService : IGraphService
     ""minHeight"": ""200px"",
     ""body"": [
         {{
-            ""type"": ""TextBlock"",
-            ""text"": ""G'day!"",
-            ""wrap"": true,
-            ""size"": ""ExtraLarge"",
-            ""color"": ""Light"",
-            ""weight"": ""Bolder""
+            ""type"": ""ColumnSet"",
+            ""columns"": [
+                {{
+                    ""type"": ""Column"",
+                    ""width"": ""stretch"",
+                    ""items"": [
+                        {{
+                            ""type"": ""TextBlock"",
+                            ""text"": ""G'day, you have a visitor!"",
+                            ""wrap"": true,
+                            ""size"": ""ExtraLarge"",
+                            ""color"": ""Light"",
+                            ""weight"": ""Bolder""
+                        }}
+                    ]
+                }},
+                {{
+                    ""type"": ""Column"",
+                    ""width"": ""auto"",
+                    ""items"": [
+                        {{
+                            ""type"": ""Image"",
+                            ""horizontalAlignment"": ""Right"",
+                            ""url"": ""https://github.com/matt-goldman/matt-goldman/raw/main/assets/synth_logo_thumb.png""
+                        }}
+                    ]
+                }}
+            ]
         }},
         {{
             ""type"": ""TextBlock"",
-            ""text"": ""You have a visitor"",
+            ""text"": ""**{visitorName}**"",
             ""wrap"": true,
             ""color"": ""Light"",
             ""size"": ""ExtraLarge""
         }},
         {{
             ""type"": ""TextBlock"",
-            ""text"": ""**{visitorName}**\\\n({visitorEmail})\\\nis here to see you and is waiting in the lobby."",
+            ""text"": ""\n({visitorEmail})\nis here to see you and is waiting in the lobby."",
             ""wrap"": true,
             ""color"": ""Light"",
             ""size"": ""Large""
         }}
-    ]
+    ],
+    ""$schema"": ""http://adaptivecards.io/schemas/adaptive-card.json"",
+    ""version"": ""1.4""
 }}";
         return card;
     }
