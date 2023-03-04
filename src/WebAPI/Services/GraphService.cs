@@ -151,6 +151,11 @@ public class GraphService : IGraphService
             throw;
         }
     }
+
+    private string GenerateHtmlContent(string visitorName, string visitorEmail)
+    {
+        return string.Empty;
+    }
     
     private string GenerateCardContent(string visitorName, string visitorEmail)
     {
