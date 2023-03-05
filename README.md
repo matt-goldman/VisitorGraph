@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/matt-goldman/VisitorGraph/main/assets/synth_logo.png)
+![A synthwave styled logo for VisitorGraph](https://raw.githubusercontent.com/matt-goldman/VisitorGraph/main/assets/synth_logo.png | width=400)
 
 [![Hack Together: Microsoft Graph and .NET](https://img.shields.io/badge/Microsoft%20-Hack--Together-orange?style=for-the-badge&logo=microsoft)](https://github.com/microsoft/hack-together)
 
