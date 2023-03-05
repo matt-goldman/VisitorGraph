@@ -4,4 +4,4 @@
 
 # A visitor sign-in system using Microsoft Graph, Azure AD, and Microsoft Teams
 
-<https://github.com/matt-goldman/VisitorGraph/blob/main/assets/VideoGraphLowRes.mp4>
+<https://raw.githubusercontent.com/matt-goldman/VisitorGraph/main/assets/VideoGraphLowRes.mp4>
