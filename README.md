@@ -16,4 +16,6 @@ To use this app, create an app registration in Azure AD with the following Micro
 * Chat.Create
 * User.Read.All
 
-Create a client secret for this app registration, and add it along with the other details to Key Vault or your app secrets. You will also need a user account with a Teams license assigned (used to send notification messages). This should be treated as a service account, rather than an account for a user. You will need to add this account's credentials to the app's secrets provider too.
+Create a client secret for this app registration, and add it along with the other details to Key Vault or your app secrets (as per the template in `appsettings.json`). You will also need a user account with a Teams license assigned (used to send notification messages). This should be treated as a service account, rather than an account for a user. You will need to add this account's credentials to the app's secrets provider too.
+
+Finally, if necessary, update the `BaseURL` property in the `Constants.cs` file in the UI app.
