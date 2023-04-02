@@ -137,6 +137,7 @@ public class GraphService : IGraphService
                         Content = GenerateCardContent(visitorName, visitorEmail),
                         Name = null,
                         ThumbnailUrl = null,
+                        TeamsAppId = _options.ClientId
                     },
                 }
             };
